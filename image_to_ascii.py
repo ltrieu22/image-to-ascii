@@ -25,12 +25,17 @@ def pixel_ascii_converter(image):
 
 
 def main(new_width=100):
-    path = input("Please enter path to the desired image: \n")
-    try:
-        image = PIL.Image.open(path)
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return
+    while True:  # Loop to keep asking for the file path until a valid one is provided
+        path = input("Please enter path to the desired image or type 'quit' to exit: ")
+        if path.lower() == "quit":  # Check if user wants to quit
+            print("Exiting the program.")
+            return  # Exit the function
+
+        try:
+            image = PIL.Image.open(path)
+            break  # Break the loop if the image is successfully opened
+        except Exception as e:
+            print(f"An error occurred: {e}. Please try again.")
 
     new_image_data = pixel_ascii_converter(grayscaler(resize_image(image, new_width)))
 
